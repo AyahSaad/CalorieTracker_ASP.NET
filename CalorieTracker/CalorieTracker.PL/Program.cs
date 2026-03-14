@@ -12,6 +12,7 @@ namespace CalorieTracker.PL
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+            AppConfiguration.Config(builder.Services);
 
             var app = builder.Build();
 
