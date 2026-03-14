@@ -1,4 +1,6 @@
 
+using CalorieTracker.BLL.MapsterConfigurations;
+
 namespace CalorieTracker.PL
 {
     public class Program
@@ -13,6 +15,7 @@ namespace CalorieTracker.PL
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
             AppConfiguration.Config(builder.Services);
+            MapsterConfig.MapsterConfiRegister();
 
             var app = builder.Build();
 
