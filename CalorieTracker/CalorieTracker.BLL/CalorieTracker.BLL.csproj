@@ -10,4 +10,14 @@
     <ProjectReference Include="..\CalorieTracker.DAL\CalorieTracker.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="MapsterConfigurations\" />
+    <Folder Include="Service\" />	  	      
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.11" />
+  </ItemGroup>
+
 </Project>
