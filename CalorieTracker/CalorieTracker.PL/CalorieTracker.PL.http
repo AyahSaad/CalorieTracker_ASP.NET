@@ -1,0 +1,6 @@
+@CalorieTracker.PL_HostAddress = http://localhost:5121
+
+GET {{CalorieTracker.PL_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
