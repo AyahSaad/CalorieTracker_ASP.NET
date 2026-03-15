@@ -22,12 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTO\Request\" />
-    <Folder Include="DTO\Response\" />
-    <Folder Include="Models\" />
     <Folder Include="Repository\Interfaces\" />
     <Folder Include="Repository\Implementations\" />
-    <Folder Include="Utils\" />
     <Folder Include="Validation\" />
   </ItemGroup>
 

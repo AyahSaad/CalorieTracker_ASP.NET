@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace CalorieTracker.DAL.DTO.Response
 {
-    public class ErrorDetails
+    public class RegisterResponse : BaseResponse
     {
-        public int StatusCode {  get; set; }
-        public string Message { get; set; }
-        public string StackTrace { get; set; }
-    }
 
+    }
 }

@@ -1,0 +1,20 @@
+﻿using CalorieTracker.DAL.DTO.Request;
+using CalorieTracker.DAL.DTO.Response;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CalorieTracker.BLL.Service
+{
+    public interface IAuthenticationService
+    {
+        Task<RegisterResponse> RegisterAsync(RegisterRequest registerRequest);
+        Task<LoginResponse> LoginAsync(LoginRequest LoginRequest);
+        Task<bool> ConfirmEmailAsync(String token, string userId);
+        Task<ForgetPasswordResponse> RequestPasswordReset(ForgetPasswordRequest request);
+        Task<ResetPasswordResponse> ResetPassword(ResetPasswordRequest request);
+        Task<LoginResponse> RefreshTokenAsync(TokenApiModel request);
+    }
+}

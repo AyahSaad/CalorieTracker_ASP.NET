@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace CalorieTracker.DAL.DTO.Response
 {
-    public class ErrorDetails
+    public class LoginResponse : BaseResponse
     {
-        public int StatusCode {  get; set; }
-        public string Message { get; set; }
-        public string StackTrace { get; set; }
-    }
+        public string? AccessToken { get; set; }
+        public string? RefreshToken { get; set; }
 
+    }
 }

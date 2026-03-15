@@ -4,6 +4,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>15e3690d-57e8-43e0-b3ab-6e80b44d15d0</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\" />
     <Folder Include="Areas\User\" />
   </ItemGroup>
 

@@ -1,7 +1,7 @@
-﻿using KASHOP.DAL.DTO.Response;
+﻿using CalorieTracker.DAL.DTO.Response;
 using Microsoft.AspNetCore.Diagnostics;
 
-namespace KASHOP.PL
+namespace CalorieTracker.PL
 {
     public class GlobalExceptionHandler: IExceptionHandler
     {
