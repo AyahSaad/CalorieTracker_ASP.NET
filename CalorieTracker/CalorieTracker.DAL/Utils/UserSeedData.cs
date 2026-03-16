@@ -31,10 +31,11 @@ namespace CalorieTracker.DAL.Utils
 
                 var user = new ApplicationUser
                 {
-                    UserName ="user",
+                    UserName = "user",
                     Email = "user@gmail.com",
                     FullName = "Normal User",
-                    EmailConfirmed=true
+                    EmailConfirmed = true,
+                    DailyCalorieGoal = 2000  
                 };
 
                 var superAdmin = new ApplicationUser

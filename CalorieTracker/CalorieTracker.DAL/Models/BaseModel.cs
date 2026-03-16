@@ -10,13 +10,9 @@ namespace CalorieTracker.DAL.Models
     public class BaseModel
     {
         public int Id { get; set; }
-        public string CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
         public string? UpdatedBy { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
-
-        [ForeignKey("CreatedBy")]
-        public ApplicationUser User { get; set; }
-
     }
 }
