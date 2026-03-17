@@ -57,7 +57,8 @@ namespace CalorieTracker.PL
 
 
             AppConfiguration.Config(builder.Services);
-            MapsterConfig.MapsterConfiRegister();
+            MapsterConfig.Configure(); 
+
 
             var app = builder.Build();
 
