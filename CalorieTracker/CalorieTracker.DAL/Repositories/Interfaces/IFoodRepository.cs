@@ -9,15 +9,13 @@ namespace CalorieTracker.DAL.Repositories.Interfaces
 {
     public interface IFoodRepository
     {
+        // IQueryable for Filter and Pagination   
+        IQueryable<Food> Query();
         Task<Food> AddAsync(Food food);
         Task<Food?> GetByIdAsync(int id);
         Task<Food?> GetByExternalIdAsync(string externalId);
-        Task<List<Food>> SearchLocalAsync(string name, int page, int limit);
-        Task<int> CountSearchAsync(string name);
-        Task<List<Food>> GetAllAsync(int page, int limit);
-        Task<int> CountAllAsync();
         Task<bool> DeleteAsync(int id);
+        Task<bool> DeleteAllAsync();
         Task<bool> ExistsAsync(string externalId);
-        Task DeleteAllAsync(); 
     }
 }

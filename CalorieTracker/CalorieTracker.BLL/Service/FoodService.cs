@@ -4,6 +4,7 @@ using CalorieTracker.DAL.DTO.Response;
 using CalorieTracker.DAL.Models;
 using CalorieTracker.DAL.Repositories.Interfaces;
 using Mapster;
+using Microsoft.EntityFrameworkCore;
 
 namespace CalorieTracker.BLL.Service
 {
@@ -52,11 +53,17 @@ namespace CalorieTracker.BLL.Service
         {
             try
             {
-                // search in DB
-                var totalCount = await _foodRepository.CountSearchAsync(name);
-                var localResults = await _foodRepository.SearchLocalAsync(name, page, limit);
+                var query = _foodRepository.Query()
+                    .Where(f => EF.Functions.Like(f.Name, $"%{name}%"));
+
+                var totalCount = await query.CountAsync();
+                var localResults = await query
+                    .Skip((page - 1) * limit)
+                    .Take(limit)
+                    .ToListAsync();
+
+                // DB
                 if (localResults.Any())
-                {
                     return new PaginatedResponse<FoodResponse>
                     {
                         TotalCount = totalCount,
@@ -64,9 +71,8 @@ namespace CalorieTracker.BLL.Service
                         Limit = limit,
                         Data = localResults.Adapt<List<FoodResponse>>()
                     };
-                }
 
-                // not exist in db > Edamam API
+                // Edamam API
                 var apiResults = await _edamamService.SearchFromApiAsync(name);
                 return new PaginatedResponse<FoodResponse>
                 {
@@ -76,10 +82,9 @@ namespace CalorieTracker.BLL.Service
                     Data = apiResults
                 };
             }
-                
             catch (Exception ex)
             {
-                 return new PaginatedResponse<FoodResponse>
+                return new PaginatedResponse<FoodResponse>
                 {
                     TotalCount = 0,
                     Page = page,
@@ -88,7 +93,6 @@ namespace CalorieTracker.BLL.Service
                 };
             }
         }
-
         public async Task<BaseResponse<FoodResponse>> GetFoodByIdAsync(int id)
         {
             try
@@ -122,12 +126,18 @@ namespace CalorieTracker.BLL.Service
         }
 
 
-        public async Task<PaginatedResponse<FoodResponse>> GetAllFoodsAsync(int page = 1, int limit = 10)
+        public async Task<PaginatedResponse<FoodResponse>> GetAllFoodsAsync( int page = 1, int limit = 10)
         {
             try
             {
-                var totalCount = await _foodRepository.CountAllAsync();
-                var foods = await _foodRepository.GetAllAsync(page, limit);
+                var query = _foodRepository.Query();
+
+                var totalCount = await query.CountAsync();
+                var foods = await query
+                    .Skip((page - 1) * limit)
+                    .Take(limit)
+                    .ToListAsync();
+
                 return new PaginatedResponse<FoodResponse>
                 {
                     TotalCount = totalCount,
@@ -135,7 +145,6 @@ namespace CalorieTracker.BLL.Service
                     Limit = limit,
                     Data = foods.Adapt<List<FoodResponse>>()
                 };
-            
             }
             catch (Exception ex)
             {
@@ -184,7 +193,7 @@ namespace CalorieTracker.BLL.Service
         {
             try
             {
-                var count = await _foodRepository.CountAllAsync();
+                var count = await _foodRepository.Query().CountAsync();
                 if (count == 0)
                 {
                     return new BaseResponse

@@ -1,9 +1,9 @@
-﻿using CalorieTracker.DAL.Utils;
+﻿using CalorieTracker.BLL.Interfaces;
 using CalorieTracker.BLL.Service;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using CalorieTracker.DAL.Repositories.Interfaces;
-using CalorieTracker.BLL.Interfaces;
 using CalorieTracker.DAL.Repository.Implementations;
+using CalorieTracker.DAL.Utils;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace CalorieTracker.PL
 {
@@ -20,6 +20,8 @@ namespace CalorieTracker.PL
             Services.AddScoped<IFoodRepository, FoodRepository>();
             Services.AddHttpClient<IEdamamService, EdamamService>();
             Services.AddScoped<IFoodService, FoodService>();
+            Services.AddScoped<IMealRepository, MealRepository>();
+            Services.AddScoped<IMealService, MealService>();
             Services.AddExceptionHandler<GlobalExceptionHandler>();
             Services.AddProblemDetails();
         }

@@ -35,6 +35,23 @@ namespace CalorieTracker.BLL.MapsterConfigurations
             // FoodMeasure → FoodMeasureResponse
             TypeAdapterConfig<FoodMeasure, FoodMeasureResponse>
                 .NewConfig();
+
+            // MealFood → MealFoodResponse
+            TypeAdapterConfig<MealFood, MealFoodResponse>
+                .NewConfig()
+                .Map(dest => dest.FoodName,
+                     src => src.Food != null ? src.Food.Name : string.Empty)
+                .Map(dest => dest.FoodImageUrl,
+                     src => src.Food != null ? src.Food.ImageUrl : null);
+
+            // Meal → MealResponse
+            TypeAdapterConfig<Meal, MealResponse>
+                .NewConfig()
+                .Map(dest => dest.MealType, src => src.MealType.ToString())
+                .Map(dest => dest.TotalCalories,
+                     src => src.MealFoods.Sum(mf => mf.TotalCalories))
+                .Map(dest => dest.Foods,
+                     src => src.MealFoods.Adapt<List<MealFoodResponse>>());
         }
     }
 }
