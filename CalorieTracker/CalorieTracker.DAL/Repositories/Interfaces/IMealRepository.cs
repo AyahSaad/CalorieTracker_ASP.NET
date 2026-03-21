@@ -18,5 +18,8 @@ namespace CalorieTracker.DAL.Repositories.Interfaces
         Task<MealFood> AddFoodToMealAsync(MealFood mealFood);
         Task<bool> RemoveFoodFromMealAsync(int mealFoodId);
         Task<MealFood?> GetMealFoodByIdAsync(int mealFoodId);
+        Task<Meal> UpdateAsync(Meal meal);
+        Task<bool> DeleteAllByDateAsync(string userId, DateTime date);
+        Task<List<Meal>> GetAllByUserAsync(string userId);
     }
 }

@@ -72,9 +72,33 @@ namespace CalorieTracker.DAL.Repository.Implementations
 
         public async Task<MealFood?> GetMealFoodByIdAsync(int mealFoodId)
         {
-            return await _context.MealFoods
-                .Include(mf => mf.Food)
+            return await _context.MealFoods.Include(mf => mf.Food)
                 .FirstOrDefaultAsync(mf => mf.Id == mealFoodId);
+        }
+
+        public async Task<Meal> UpdateAsync(Meal meal)
+        {
+            _context.Meals.Update(meal);
+            await _context.SaveChangesAsync();
+            return meal;
+        }
+
+        public async Task<bool> DeleteAllByDateAsync(string userId, DateTime date)
+        {
+            var meals = await _context.Meals.Where(m => m.UserId == userId && m.Date.Date == date.Date).ToListAsync();
+            if (!meals.Any()) return false;
+            _context.Meals.RemoveRange(meals);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<List<Meal>> GetAllByUserAsync(string userId)
+        {
+            return await _context.Meals.Include(m => m.MealFoods)
+                .ThenInclude(mf => mf.Food)
+                .Where(m => m.UserId == userId)
+                .OrderByDescending(m => m.Date)
+                .ToListAsync();
         }
     }
 }

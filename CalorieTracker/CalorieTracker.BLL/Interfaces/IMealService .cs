@@ -16,5 +16,8 @@ namespace CalorieTracker.BLL.Interfaces
         Task<BaseResponse<MealResponse>> GetMealByIdAsync(string userId, int mealId);
         Task<BaseResponse> DeleteMealAsync(string userId, int mealId);
         Task<BaseResponse> RemoveFoodFromMealAsync(string userId, int mealFoodId);
+        Task<BaseResponse<MealResponse>> UpdateMealAsync(string userId, int mealId, UpdateMealRequest request);
+        Task<BaseResponse> DeleteAllMealsByDateAsync(string userId, DateTime date);
+        Task<BaseResponse<List<MealResponse>>> GetAllMealsAsync(string userId);
     }
 }

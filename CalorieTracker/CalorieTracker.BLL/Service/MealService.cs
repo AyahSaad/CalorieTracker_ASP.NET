@@ -129,6 +129,14 @@ namespace CalorieTracker.BLL.Service
                                 m.Date.Date == date.Date)
                     .ToListAsync();
 
+                if (!meals.Any())
+                    return new BaseResponse<List<MealResponse>>
+                    {
+                        Success = false,
+                        Message = $"No meals found for {date:yyyy-MM-dd}",
+                        Data = new List<MealResponse>()
+                    };
+
                 return new BaseResponse<List<MealResponse>>
                 {
                     Success = true,
@@ -208,8 +216,7 @@ namespace CalorieTracker.BLL.Service
             }
         }
 
-        public async Task<BaseResponse> RemoveFoodFromMealAsync(
-            string userId, int mealFoodId)
+        public async Task<BaseResponse> RemoveFoodFromMealAsync(string userId, int mealFoodId)
         {
             try
             {
@@ -243,6 +250,101 @@ namespace CalorieTracker.BLL.Service
                 {
                     Success = false,
                     Message = "Failed to remove food from meal",
+                    Errors = new List<string> { ex.Message }
+                };
+            }
+        }
+
+        public async Task<BaseResponse<MealResponse>> UpdateMealAsync(string userId, int mealId, UpdateMealRequest request)
+        {
+            try
+            {
+                var meal = await _mealRepository.GetUserMealAsync(mealId, userId);
+                if (meal is null)
+                    return new BaseResponse<MealResponse>
+                    {
+                        Success = false,
+                        Message = "Meal not found"
+                    };
+
+                meal.MealType = request.MealType;
+                meal.Date = request.Date.Date;
+
+                var updated = await _mealRepository.UpdateAsync(meal);
+                return new BaseResponse<MealResponse>
+                {
+                    Success = true,
+                    Message = "Meal updated successfully",
+                    Data = updated.Adapt<MealResponse>()
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<MealResponse>
+                {
+                    Success = false,
+                    Message = "Failed to update meal",
+                    Errors = new List<string> { ex.Message }
+                };
+            }
+        }
+
+        public async Task<BaseResponse> DeleteAllMealsByDateAsync(string userId, DateTime date)
+        {
+            try
+            {
+                var result = await _mealRepository.DeleteAllByDateAsync(userId, date);
+                if (!result)
+                    return new BaseResponse
+                    {
+                        Success = false,
+                        Message = "No meals found for this date"
+                    };
+
+                return new BaseResponse
+                {
+                    Success = true,
+                    Message = "All meals deleted successfully"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Failed to delete meals",
+                    Errors = new List<string> { ex.Message }
+                };
+            }
+        }
+
+        public async Task<BaseResponse<List<MealResponse>>> GetAllMealsAsync(string userId)
+        {
+            try
+            {
+                var meals = await _mealRepository.GetAllByUserAsync(userId);
+
+                if (!meals.Any())
+                    return new BaseResponse<List<MealResponse>>
+                    {
+                        Success = false,
+                        Message = "No meals found",
+                        Data = new List<MealResponse>()
+                    };
+
+                return new BaseResponse<List<MealResponse>>
+                {
+                    Success = true,
+                    Message = "Meals retrieved successfully",
+                    Data = meals.Adapt<List<MealResponse>>()
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<List<MealResponse>>
+                {
+                    Success = false,
+                    Message = "Failed to get meals",
                     Errors = new List<string> { ex.Message }
                 };
             }

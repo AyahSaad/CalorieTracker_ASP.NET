@@ -9,7 +9,8 @@ namespace CalorieTracker.PL.Areas.User
 {
     [Route("api/user/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "User")]
+
     public class MealController : ControllerBase
     {
         private readonly IMealService _mealService;
@@ -71,6 +72,31 @@ namespace CalorieTracker.PL.Areas.User
             var result = await _mealService.RemoveFoodFromMealAsync(GetUserId(), mealFoodId);
             if (!result.Success)
                 return BadRequest(result);
+            return Ok(result);
+        }
+
+        [HttpPatch("{mealId}")]
+        public async Task<IActionResult> UpdateMeal([FromRoute] int mealId, [FromBody] UpdateMealRequest request)
+        {
+            var result = await _mealService.UpdateMealAsync(GetUserId(), mealId, request);
+            if (!result.Success)
+                return BadRequest(result);
+            return Ok(result);
+        }
+
+        [HttpDelete("by-date")]
+        public async Task<IActionResult> DeleteAllMealsByDate([FromQuery] DateTime date)
+        {
+            var result = await _mealService.DeleteAllMealsByDateAsync(GetUserId(), date);
+            if (!result.Success)
+                return BadRequest(result);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllMeals()
+        {
+            var result = await _mealService.GetAllMealsAsync(GetUserId());
             return Ok(result);
         }
     }
