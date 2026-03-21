@@ -26,6 +26,8 @@ namespace CalorieTracker.PL
             Services.AddScoped<IUserService, UserService>();
             Services.AddScoped<IWeightLogRepository, WeightLogRepository>();
             Services.AddScoped<IWeightLogService, WeightLogService>();
+            Services.AddScoped<IFavoriteFoodRepository, FavoriteFoodRepository>();
+            Services.AddScoped<IFavoriteFoodService, FavoriteFoodService>();
             Services.AddExceptionHandler<GlobalExceptionHandler>();
             Services.AddProblemDetails();
         }
