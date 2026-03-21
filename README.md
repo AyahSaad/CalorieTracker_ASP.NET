@@ -101,12 +101,6 @@ dotnet run
 | Admin | admin@gmail.com | Pass@1122 |
 | User | user@gmail.com | Pass@1122 |
 
----
-
-```
-
----
-
 ## 👩‍💻 Developer
-
 **Ayah Saad** — Student @ Knowledge Academy ASP.NET course.
+
