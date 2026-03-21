@@ -109,4 +109,4 @@ dotnet run
 
 ## 👩‍💻 Developer
 
-**Ayah Saad** — Computer Science Student @ Birzeit University
+**Ayah Saad** — Student @ Knowledge Academy ASP.NET course.
