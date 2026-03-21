@@ -52,6 +52,10 @@ namespace CalorieTracker.BLL.MapsterConfigurations
                      src => src.MealFoods.Sum(mf => mf.TotalCalories))
                 .Map(dest => dest.Foods,
                      src => src.MealFoods.Adapt<List<MealFoodResponse>>());
+
+            // ✅ ApplicationUser → UserProfileResponse
+            TypeAdapterConfig<ApplicationUser, UserProfileResponse>
+                .NewConfig();
         }
     }
 }

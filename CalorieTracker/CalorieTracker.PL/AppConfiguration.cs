@@ -23,6 +23,7 @@ namespace CalorieTracker.PL
             Services.AddScoped<IMealRepository, MealRepository>();
             Services.AddScoped<IMealService, MealService>();
             Services.AddScoped<IReportService, ReportService>();
+            Services.AddScoped<IUserService, UserService>();
             Services.AddExceptionHandler<GlobalExceptionHandler>();
             Services.AddProblemDetails();
         }
