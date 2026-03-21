@@ -56,6 +56,10 @@ namespace CalorieTracker.BLL.MapsterConfigurations
             // ✅ ApplicationUser → UserProfileResponse
             TypeAdapterConfig<ApplicationUser, UserProfileResponse>
                 .NewConfig();
+
+            // ✅ WeightLog → WeightLogResponse
+            TypeAdapterConfig<WeightLog, WeightLogResponse>
+                .NewConfig();
         }
     }
 }
