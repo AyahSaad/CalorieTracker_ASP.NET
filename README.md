@@ -2,6 +2,12 @@
 
 A full-featured RESTful API built with ASP.NET Core for tracking daily calories, meals, and nutrition.
 
+ ---
+
+## 📋 API Documentation
+ 
+📬 **[View Full API Documentation on Postman](https://documenter.getpostman.com/view/36257320/2sBXijJBsN)**
+ 
 ---
 
 ## 🚀 Features
@@ -100,6 +106,7 @@ dotnet run
 | SuperAdmin | superAdmin@gmail.com | Pass@1122 |
 | Admin | admin@gmail.com | Pass@1122 |
 | User | user@gmail.com | Pass@1122 |
+
 
 ## 👩‍💻 Developer
 **Ayah Saad** — Student @ Knowledge Academy ASP.NET course.
